@@ -1,0 +1,32 @@
+.main-nav-item,
+.main-nav-item:visited,
+.main-nav-item:focus,
+.main-nav-item:active,
+.main-nav-item:hover {
+  text-decoration: none;
+}
+.main-nav-item,
+.main-nav-item:visited,
+.main-nav-item:focus, 
+.main-nav-item:active {
+  color: #2c3e50;
+  margin-right: 0.5rem;
+  font-weight: bold;
+  display: inline-block;
+}
+.logout-button {
+  all: unset; 
+  color: #000;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.logout-button:hover {
+  text-decoration: underline;
+  color: #00bc77;
+}
+

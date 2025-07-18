@@ -1,0 +1,77 @@
+/* Conteneur principal centré */
+.transaction-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem 0;
+}
+
+/* Tableau stylisé */
+.transaction-table {
+  width: 100%;
+  max-width: 800px;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  font-family: 'Avenir', sans-serif;
+}
+
+/* En-tête du tableau */
+.transaction-table thead th {
+  text-align: left;
+  padding: 12px 20px;
+  color: #2c3e50;
+  font-weight: bold;
+  font-size: 1rem;
+  background: none;
+}
+
+/* Ligne principale des transactions */
+.transaction-row {
+  background-color: #4CAF81;
+  color: white;
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.transaction-row td {
+  padding: 15px 20px;
+}
+
+/* Dernière cellule pour la flèche */
+.arrow-cell {
+  text-align: right;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* Détails de la transaction */
+.transaction-details td {
+  padding: 0;
+  background-color: transparent;
+}
+
+/* Bloc des détails internes */
+.details-content {
+  background-color: #222;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0 0 5px 5px;
+  margin-top: -10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Icône d'édition */
+.edit-icon {
+  margin-left: 8px;
+  cursor: pointer;
+  color: salmon;
+  font-size: 0.9rem;
+}
+
+/* Pour harmoniser les textes */
+.details-content strong {
+  font-weight: 600;
+}

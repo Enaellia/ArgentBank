@@ -1,0 +1,27 @@
+h1 {
+  color: #fff;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.transaction-row {
+  cursor: pointer;
+}
+
+.transaction-row:hover {
+  background-color: #eee;
+}
+
+.transaction-details td {
+  background-color: #222;
+  color: white;
+  padding: 1rem;
+}
+
+.details-content p {
+  margin: 0.5rem 0;
+}
