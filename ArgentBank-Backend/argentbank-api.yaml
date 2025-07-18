@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: ArgentBank - API utilisateur
+  description: API pour l'authentification et la gestion du profil utilisateur dans l'application ArgentBank.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3001/api/v1
+
+paths:
+  /user/login:
+    post:
+      summary: Connexion utilisateur
+      description: Permet à un utilisateur de se connecter et de recevoir un token d'authentification.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: tony@stark.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        '200':
+          description: Connexion réussie, token retourné
+        '400':
+          description: Requête invalide
+        '401':
+          description: Identifiants incorrects
+
+  /user/profile:
+    get:
+      summary: Récupérer les informations utilisateur
+      description: Retourne les informations du profil de l’utilisateur connecté.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Données utilisateur retournées avec succès
+        '401':
+          description: Non autorisé (token manquant ou invalide)
+
+    put:
+      summary: Modifier le nom d'utilisateur
+      description: Permet à l'utilisateur de modifier son pseudo.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userName:
+                  type: string
+                  example: IronMan
+      responses:
+        '200':
+          description: Nom d'utilisateur modifié avec succès
+        '400':
+          description: Requête invalide
+        '401':
+          description: Non autorisé (token manquant ou invalide)
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
