@@ -1,55 +1,86 @@
 openapi: 3.0.0
 info:
-  title: ArgentBank - API utilisateur
-  description: API pour l'authentification et la gestion du profil utilisateur dans l'application ArgentBank.
+  title: ArgentBank Transactions API
   version: 1.0.0
+  description: API pour gérer les transactions d’un utilisateur connecté sur l’application ArgentBank.
 
 servers:
-  - url: http://localhost:3001/api/v1
+  - url: https://api.argentbank.fr/api/v1
 
 paths:
-  /user/login:
-    post:
-      summary: Connexion utilisateur
-      description: Permet à un utilisateur de se connecter et de recevoir un token d'authentification.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: tony@stark.com
-                password:
-                  type: string
-                  example: password123
-      responses:
-        '200':
-          description: Connexion réussie, token retourné
-        '400':
-          description: Requête invalide
-        '401':
-          description: Identifiants incorrects
-
-  /user/profile:
+  /transactions/{accountId}:
     get:
-      summary: Récupérer les informations utilisateur
-      description: Retourne les informations du profil de l’utilisateur connecté.
-      security:
-        - bearerAuth: []
+      summary: Liste des transactions pour un compte utilisateur
+      description: Retourne toutes les transactions associées à un compte bancaire de l'utilisateur connecté.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: L’identifiant unique du compte bancaire
+        - name: month
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "2025-07"
+          description: Filtrer les transactions par mois (format YYYY-MM)
       responses:
         '200':
-          description: Données utilisateur retournées avec succès
+          description: Liste des transactions retournée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
         '401':
-          description: Non autorisé (token manquant ou invalide)
+          description: Utilisateur non autorisé
+        '404':
+          description: Compte non trouvé
+
+  /transactions/{accountId}/{transactionId}:
+    get:
+      summary: Détails d'une transaction
+      description: Retourne les détails d’une transaction spécifique pour un compte donné.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détails de la transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          description: Utilisateur non autorisé
+        '404':
+          description: Transaction ou compte introuvable
 
     put:
-      summary: Modifier le nom d'utilisateur
-      description: Permet à l'utilisateur de modifier son pseudo.
-      security:
-        - bearerAuth: []
+      summary: Modifier une transaction
+      description: Permet de mettre à jour le libellé ou la note d’une transaction spécifique.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -57,20 +88,41 @@ paths:
             schema:
               type: object
               properties:
-                userName:
+                category:
                   type: string
-                  example: IronMan
+                  description: Libellé de la transaction
+                note:
+                  type: string
+                  description: Note personnelle sur la transaction
       responses:
         '200':
-          description: Nom d'utilisateur modifié avec succès
+          description: Transaction modifiée avec succès
         '400':
-          description: Requête invalide
+          description: Données invalides
         '401':
-          description: Non autorisé (token manquant ou invalide)
+          description: Utilisateur non autorisé
+        '404':
+          description: Transaction non trouvée
 
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        amount:
+          type: number
+          format: float
+        type:
+          type: string
+          enum: [credit, debit]
+        date:
+          type: string
+          format: date-time
+        label:
+          type: string
+        note:
+          type: string
