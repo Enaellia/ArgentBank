@@ -39,7 +39,10 @@ module.exports.getUserProfile = async serviceData => {
       throw new Error('User not found!')
     }
 
-    return user.toObject()
+    return {
+  ...user.toObject(),
+  accountId: 'acc123' 
+}
   } catch (error) {
     console.error('Error in userService.js', error)
     throw new Error(error)
