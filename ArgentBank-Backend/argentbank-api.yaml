@@ -5,7 +5,7 @@ info:
   description: API pour gérer les transactions d’un utilisateur connecté sur l’application ArgentBank.
 
 servers:
-  - url: https://api.argentbank.fr/api/v1
+  - url: http://localhost:3001/api/v1
 
 paths:
   /transactions/{accountId}:
@@ -39,6 +39,8 @@ paths:
           description: Utilisateur non autorisé
         '404':
           description: Compte non trouvé
+        '500':
+          description : Erreur serveur
 
   /transactions/{accountId}/{transactionId}:
     get:
@@ -66,6 +68,8 @@ paths:
           description: Utilisateur non autorisé
         '404':
           description: Transaction ou compte introuvable
+        '500':
+          description : Erreur serveur
 
     put:
       summary: Modifier une transaction
@@ -103,6 +107,8 @@ paths:
           description: Utilisateur non autorisé
         '404':
           description: Transaction non trouvée
+        '500':
+          description : Erreur serveur
 
 components:
   schemas:
@@ -122,6 +128,8 @@ components:
         date:
           type: string
           format: date-time
+        category:
+          type: string
         label:
           type: string
         note:

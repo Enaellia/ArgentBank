@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/userSlice';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/img/argentBankLogo.png';
+import logo from '../../assets/img/argentBankLogo.webp';
 import './header.css';
 
 function Header() {

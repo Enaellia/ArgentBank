@@ -1,13 +1,10 @@
 import React from 'react'
-import chatIcon from '../assets/img/icon-chat.png';
-import moneyIcon from '../assets/img/icon-money.png';
-import securityIcon from '../assets/img/icon-security.png';
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
 import Feature from '../components/features/Features';
-import iconChat from '../assets/img/icon-chat.png';
-import iconMoney from '../assets/img/icon-money.png';
-import iconSecurity from '../assets/img/icon-security.png';
+import iconChat from '../assets/img/icon-chat.webp';
+import iconMoney from '../assets/img/icon-money.webp';
+import iconSecurity from '../assets/img/icon-security.webp';
 
 function Home() {
   return (
